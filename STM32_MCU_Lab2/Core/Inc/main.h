@@ -117,7 +117,7 @@ void Error_Handler(void);
 #define ROW1_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-
+#define TICK 10
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
