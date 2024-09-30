@@ -56,7 +56,140 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+const int MAX_LED = 4;
+int index_led = 0;
+int led_buffer[4] = {1, 2, 3, 4};
+int count = 0, flag = 0;
+void setTimer1(int duration){
+	count = duration/TICK;
+	flag = 0;
+}
+void timer1Run(){
+	count--;
+	if(count==0) flag = 1;
+}
+void display7SEG(int num){
+	switch(num){
+			case 0:
+				HAL_GPIO_WritePin(SEG0_GPIO_Port,SEG0_Pin,RESET); //a
+				HAL_GPIO_WritePin(SEG1_GPIO_Port,SEG1_Pin,RESET); //b
+				HAL_GPIO_WritePin(SEG2_GPIO_Port,SEG2_Pin,RESET);//c
+				HAL_GPIO_WritePin(SEG3_GPIO_Port,SEG3_Pin,RESET);//d
+				HAL_GPIO_WritePin(SEG4_GPIO_Port,SEG4_Pin,RESET); //e
+				HAL_GPIO_WritePin(SEG5_GPIO_Port,SEG5_Pin,RESET); //f
+				HAL_GPIO_WritePin(SEG6_GPIO_Port,SEG6_Pin,SET); //g
+				break;
+			case 1:
+				HAL_GPIO_WritePin(SEG0_GPIO_Port,SEG0_Pin,SET); //a
+				HAL_GPIO_WritePin(SEG1_GPIO_Port,SEG1_Pin,RESET); //b
+				HAL_GPIO_WritePin(SEG2_GPIO_Port,SEG2_Pin,RESET);//c
+				HAL_GPIO_WritePin(SEG3_GPIO_Port,SEG3_Pin,SET);//d
+				HAL_GPIO_WritePin(SEG4_GPIO_Port,SEG4_Pin,SET); //e
+				HAL_GPIO_WritePin(SEG5_GPIO_Port,SEG5_Pin,SET); //f
+				HAL_GPIO_WritePin(SEG6_GPIO_Port,SEG6_Pin,SET); //g
+					break;
+			case 2:
+				HAL_GPIO_WritePin(SEG0_GPIO_Port,SEG0_Pin,RESET); //a
+				HAL_GPIO_WritePin(SEG1_GPIO_Port,SEG1_Pin,RESET); //b
+				HAL_GPIO_WritePin(SEG2_GPIO_Port,SEG2_Pin,SET);//c
+				HAL_GPIO_WritePin(SEG3_GPIO_Port,SEG3_Pin,RESET);//d
+				HAL_GPIO_WritePin(SEG4_GPIO_Port,SEG4_Pin,RESET); //e
+				HAL_GPIO_WritePin(SEG5_GPIO_Port,SEG5_Pin,SET); //f
+				HAL_GPIO_WritePin(SEG6_GPIO_Port,SEG6_Pin,RESET); //g
+					break;
+			case 3:
+				HAL_GPIO_WritePin(SEG0_GPIO_Port,SEG0_Pin,RESET); //a
+				HAL_GPIO_WritePin(SEG1_GPIO_Port,SEG1_Pin,RESET); //b
+				HAL_GPIO_WritePin(SEG2_GPIO_Port,SEG2_Pin,RESET);//c
+				HAL_GPIO_WritePin(SEG3_GPIO_Port,SEG3_Pin,RESET);//d
+				HAL_GPIO_WritePin(SEG4_GPIO_Port,SEG4_Pin,SET); //e
+				HAL_GPIO_WritePin(SEG5_GPIO_Port,SEG5_Pin,SET); //f
+				HAL_GPIO_WritePin(SEG6_GPIO_Port,SEG6_Pin,RESET); //g
+					break;
+			case 4:
+				HAL_GPIO_WritePin(SEG0_GPIO_Port,SEG0_Pin,SET); //a
+				HAL_GPIO_WritePin(SEG1_GPIO_Port,SEG1_Pin,RESET); //b
+				HAL_GPIO_WritePin(SEG2_GPIO_Port,SEG2_Pin,RESET);//c
+				HAL_GPIO_WritePin(SEG3_GPIO_Port,SEG3_Pin,SET);//d
+				HAL_GPIO_WritePin(SEG4_GPIO_Port,SEG4_Pin,SET); //e
+				HAL_GPIO_WritePin(SEG5_GPIO_Port,SEG5_Pin,RESET); //f
+				HAL_GPIO_WritePin(SEG6_GPIO_Port,SEG6_Pin,RESET); //g
+					break;
+			case 5:
+				HAL_GPIO_WritePin(SEG0_GPIO_Port,SEG0_Pin,RESET); //a
+				HAL_GPIO_WritePin(SEG1_GPIO_Port,SEG1_Pin,SET); //b
+				HAL_GPIO_WritePin(SEG2_GPIO_Port,SEG2_Pin,RESET);//c
+				HAL_GPIO_WritePin(SEG3_GPIO_Port,SEG3_Pin,RESET);//d
+				HAL_GPIO_WritePin(SEG4_GPIO_Port,SEG4_Pin,SET); //e
+				HAL_GPIO_WritePin(SEG5_GPIO_Port,SEG5_Pin,RESET); //f
+				HAL_GPIO_WritePin(SEG6_GPIO_Port,SEG6_Pin,RESET); //g
+					break;
+			case 6:
+				HAL_GPIO_WritePin(SEG0_GPIO_Port,SEG0_Pin,RESET); //a
+				HAL_GPIO_WritePin(SEG1_GPIO_Port,SEG1_Pin,SET); //b
+				HAL_GPIO_WritePin(SEG2_GPIO_Port,SEG2_Pin,RESET);//c
+				HAL_GPIO_WritePin(SEG3_GPIO_Port,SEG3_Pin,RESET);//d
+				HAL_GPIO_WritePin(SEG4_GPIO_Port,SEG4_Pin,RESET); //e
+				HAL_GPIO_WritePin(SEG5_GPIO_Port,SEG5_Pin,RESET); //f
+				HAL_GPIO_WritePin(SEG6_GPIO_Port,SEG6_Pin,RESET); //g
+				break;
+			case 7:
+				HAL_GPIO_WritePin(SEG0_GPIO_Port,SEG0_Pin,RESET); //a
+				HAL_GPIO_WritePin(SEG1_GPIO_Port,SEG1_Pin,RESET); //b
+				HAL_GPIO_WritePin(SEG2_GPIO_Port,SEG2_Pin,RESET);//c
+				HAL_GPIO_WritePin(SEG3_GPIO_Port,SEG3_Pin,SET);//d
+				HAL_GPIO_WritePin(SEG4_GPIO_Port,SEG4_Pin,SET); //e
+				HAL_GPIO_WritePin(SEG5_GPIO_Port,SEG5_Pin,SET); //f
+				HAL_GPIO_WritePin(SEG6_GPIO_Port,SEG6_Pin,SET); //g
+					break;
+			case 8:
+				HAL_GPIO_WritePin(SEG0_GPIO_Port,SEG0_Pin,RESET); //a
+				HAL_GPIO_WritePin(SEG1_GPIO_Port,SEG1_Pin,RESET); //b
+				HAL_GPIO_WritePin(SEG2_GPIO_Port,SEG2_Pin,RESET);//c
+				HAL_GPIO_WritePin(SEG3_GPIO_Port,SEG3_Pin,RESET);//d
+				HAL_GPIO_WritePin(SEG4_GPIO_Port,SEG4_Pin,RESET); //e
+				HAL_GPIO_WritePin(SEG5_GPIO_Port,SEG5_Pin,RESET); //f
+				HAL_GPIO_WritePin(SEG6_GPIO_Port,SEG6_Pin,RESET); //g
+					break;
+			case 9:
+				HAL_GPIO_WritePin(SEG0_GPIO_Port,SEG0_Pin,RESET); //a
+				HAL_GPIO_WritePin(SEG1_GPIO_Port,SEG1_Pin,RESET); //b
+				HAL_GPIO_WritePin(SEG2_GPIO_Port,SEG2_Pin,RESET);//c
+				HAL_GPIO_WritePin(SEG3_GPIO_Port,SEG3_Pin,RESET);//d
+				HAL_GPIO_WritePin(SEG4_GPIO_Port,SEG4_Pin,SET); //e
+				HAL_GPIO_WritePin(SEG5_GPIO_Port,SEG5_Pin,RESET); //f
+				HAL_GPIO_WritePin(SEG6_GPIO_Port,SEG6_Pin,RESET); //g
+					break;
+			}
+}
+void update7SEG(int index){
+	switch (index){
+ 	 case 0:
+ //Display the first 7SEG with led_buffer[0]
 
+ 		 HAL_GPIO_WritePin(EN0_GPIO_Port,EN0_Pin,RESET);
+ 		 HAL_GPIO_WritePin(EN3_GPIO_Port,EN3_Pin,SET);
+ 		 break;
+ 	 case 1:
+ //Display the second 7SEG with led_buffer[1]
+ 		HAL_GPIO_WritePin(EN0_GPIO_Port,EN0_Pin,SET);
+ 		HAL_GPIO_WritePin(EN1_GPIO_Port,EN1_Pin,RESET);
+ 		 break;
+ 	 case 2:
+ //Display the third 7SEG with led_buffer[2]
+ 		HAL_GPIO_WritePin(EN1_GPIO_Port,EN1_Pin,SET);
+ 		HAL_GPIO_WritePin(EN2_GPIO_Port,EN2_Pin,RESET);
+ 		 break;
+ 	 case 3:
+ //Display the forth 7SEG with led_buffer[3]
+ 		HAL_GPIO_WritePin(EN2_GPIO_Port,EN2_Pin,SET);
+ 		HAL_GPIO_WritePin(EN3_GPIO_Port,EN3_Pin,RESET);
+ 		 break;
+ 	 default:
+ 		 break;
+	}
+	display7SEG(led_buffer[index]);
+}
 /* USER CODE END 0 */
 
 /**
@@ -90,7 +223,8 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  setTimer1(1000);
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -100,6 +234,11 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  if(flag == 1){
+	  		  setTimer1(1000);
+	  		  update7SEG(index_led++);
+	  		  index_led%=MAX_LED;
+	  }
   }
   /* USER CODE END 3 */
 }
@@ -243,7 +382,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	timer1Run();
+}
 /* USER CODE END 4 */
 
 /**
