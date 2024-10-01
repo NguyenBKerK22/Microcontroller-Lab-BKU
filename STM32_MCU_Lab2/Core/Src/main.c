@@ -57,9 +57,10 @@ static void MX_TIM2_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 const int MAX_LED = 4;
-int index_led = 1;
-int led_buffer[4] = {8, 8, 9, 6};
-int count = 0, flag = 0;
+int index_led = 0;
+int led_buffer[4] = {2, 5, 8, 9};
+int timer_1 = 0, flag_1 = 0;
+int timer_2 = 0, flag_2 = 0;
 void display7SEG(int num){
 	switch(num){
 			case 0:
@@ -223,7 +224,8 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  setTimer1(500);
+  setTimer1(50);
+  setTimer2(100);
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
@@ -234,10 +236,14 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  if(flag == 1){
+	  if(flag_1 == 1){
 	  		  setTimer1(500);
 	  		  update7SEG(index_led++);
 	  		  index_led%=4;
+	  }
+	  if(flag_2 == 1){
+		  setTimer2(1000);
+		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 	  }
   }
   /* USER CODE END 3 */
@@ -372,6 +378,7 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	timer1Run();
+	timer2Run();
 }
 /* USER CODE END 4 */
 

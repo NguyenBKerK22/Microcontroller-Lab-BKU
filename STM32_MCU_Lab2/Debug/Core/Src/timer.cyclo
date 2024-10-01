@@ -1,2 +1,4 @@
 ../Core/Src/timer.c:8:6:setTimer1	1
 ../Core/Src/timer.c:12:6:timer1Run	2
+../Core/Src/timer.c:16:6:setTimer2	1
+../Core/Src/timer.c:20:6:timer2Run	2
