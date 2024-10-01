@@ -12,4 +12,5 @@ extern uint8_t matrix_buffer[8];
 void updateLEDMatrix(int index);
 void setUpLEDMatrix();
 void updateLEDMatrixBuffer(int num);
+void shiftLeft();
 #endif /* INC_MATRIX_H_ */

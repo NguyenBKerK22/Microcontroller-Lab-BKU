@@ -251,6 +251,7 @@ int main(void)
 	  		  setTimer1(50);
 	  		  updateLEDMatrix(index_led_matrix++);
 	  		  index_led_matrix%=MAX_LED_MATRIX;
+	  		  if(index_led_matrix==0)shiftLeft();
 	  }
   }
   /* USER CODE END 3 */

@@ -353,3 +353,10 @@ void updateLEDMatrixBuffer(int num){
 		break;
 	}
 }
+void shiftLeft(){
+	uint8_t temp = matrix_buffer[0];
+	for(int i=1;i<8;i++){
+		matrix_buffer[i-1] = matrix_buffer[i];
+	}
+	matrix_buffer[7] = temp;
+}
