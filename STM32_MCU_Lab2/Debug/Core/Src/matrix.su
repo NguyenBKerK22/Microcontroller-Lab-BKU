@@ -1,0 +1,3 @@
+../Core/Src/matrix.c:9:6:setUpLEDMatrix	8	static
+../Core/Src/matrix.c:28:6:updateLEDMatrix	16	static
+../Core/Src/matrix.c:252:6:updateLEDMatrixBuffer	16	static
