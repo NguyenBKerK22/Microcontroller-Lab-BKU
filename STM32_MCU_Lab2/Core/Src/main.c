@@ -58,9 +58,10 @@ static void MX_TIM2_Init(void);
 /* USER CODE BEGIN 0 */
 const int MAX_LED = 4;
 int index_led = 0;
-int led_buffer[4] = {2, 5, 8, 9};
+int led_buffer[4] = {2, 4, 5, 9};
 int timer_1 = 0, flag_1 = 0;
 int timer_2 = 0, flag_2 = 0;
+int hour = 24, minute = 59, second = 50;
 void display7SEG(int num){
 	switch(num){
 			case 0:
@@ -191,6 +192,12 @@ void update7SEG(int index){
 	}
 	display7SEG(led_buffer[index]);
 }
+void updateClockBuffer(){
+	led_buffer[0] = hour/10;
+	led_buffer[1] = hour%10;
+	led_buffer[2] = minute/10;
+	led_buffer[3] = minute%10;
+}
 /* USER CODE END 0 */
 
 /**
@@ -225,7 +232,7 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   setTimer1(50);
-  setTimer2(100);
+  setTimer2(30);
   HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
@@ -242,8 +249,21 @@ int main(void)
 	  		  index_led%=4;
 	  }
 	  if(flag_2 == 1){
-		  setTimer2(1000);
-		  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
+		  	  setTimer2(1000);
+		  	  second++;
+		  	  if (second >= 60){
+		  		  second = 0;
+		  		  minute++;
+		  	  }
+		  	  if(minute >= 60){
+		  		  minute = 0;
+		  		  hour++;
+		  	  }
+		  	  if(hour >=24){
+		  		  hour = 0;
+		  	  }
+		  	  updateClockBuffer();
+		  	  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 	  }
   }
   /* USER CODE END 3 */
