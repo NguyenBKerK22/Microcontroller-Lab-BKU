@@ -250,20 +250,6 @@ int main(void)
 	  }
 	  if(flag_2 == 1){
 		  	  setTimer2(1000);
-		  	  second++;
-		  	  if (second >= 60){
-		  		  second = 0;
-		  		  minute++;
-		  	  }
-		  	  if(minute >= 60){
-		  		  minute = 0;
-		  		  hour++;
-		  	  }
-		  	  if(hour >=24){
-		  		  hour = 0;
-		  	  }
-		  	  updateClockBuffer();
-		  	  HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
 	  }
   }
   /* USER CODE END 3 */
