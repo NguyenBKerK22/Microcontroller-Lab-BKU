@@ -244,7 +244,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  if(flag_1 == 1){
-	  		  setTimer1(500);
+	  		  setTimer1(250);
 	  		  update7SEG(index_led++);
 	  		  index_led%=4;
 	  }
